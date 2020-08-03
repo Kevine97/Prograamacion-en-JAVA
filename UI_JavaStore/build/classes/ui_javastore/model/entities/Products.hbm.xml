@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 23-abr-2020 12:38:40 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="ui_javastore.model.entities.Products" table="Products" schema="dbo" catalog="JavaStore" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="Id" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="productsCategories" class="ui_javastore.model.entities.ProductsCategories" fetch="select">
+            <column name="Category" not-null="true" />
+        </many-to-one>
+        <many-to-one name="usersByCreatedBy" class="ui_javastore.model.entities.Users" fetch="select">
+            <column name="CreatedBy" not-null="true" />
+        </many-to-one>
+        <many-to-one name="usersByModifiedBy" class="ui_javastore.model.entities.Users" fetch="select">
+            <column name="ModifiedBy" not-null="true" />
+        </many-to-one>
+        <property name="name" type="serializable">
+            <column name="Name" not-null="true" />
+        </property>
+        <property name="shortName" type="serializable">
+            <column name="ShortName" not-null="true" />
+        </property>
+        <property name="description" type="serializable">
+            <column name="Description" not-null="true" />
+        </property>
+        <property name="price" type="double">
+            <column name="price" precision="53" scale="0" not-null="true" />
+        </property>
+        <property name="createdDate" type="timestamp">
+            <column name="CreatedDate" length="23" />
+        </property>
+        <property name="modifiedDate" type="timestamp">
+            <column name="ModifiedDate" length="23" not-null="true" />
+        </property>
+        <set name="invoicesDetailses" table="InvoicesDetails" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="Product" not-null="true" />
+            </key>
+            <one-to-many class="ui_javastore.model.entities.InvoicesDetails" />
+        </set>
+    </class>
+</hibernate-mapping>
